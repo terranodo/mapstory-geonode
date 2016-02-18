@@ -20,6 +20,7 @@
 
 # Django settings for the GeoNode project.
 import os
+import geonode
 from geonode.settings import *
 #
 # General Django development settings
@@ -30,12 +31,13 @@ SITENAME = 'MapStory'
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
 LOCAL_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+GEONODE_ROOT = os.path.abspath(os.path.abspath(geonode.__file__))
 
 WSGI_APPLICATION = "mapstory.wsgi.application"
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS.append(
     os.path.join(LOCAL_ROOT, "static"),
-] + STATICFILES_DIRS
+)
 
 STATIC_ROOT = os.path.join(LOCAL_ROOT, "static_root")
 MEDIA_ROOT = os.path.join(LOCAL_ROOT, "uploaded")

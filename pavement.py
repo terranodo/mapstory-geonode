@@ -1,13 +1,17 @@
 import os
 import subprocess
 import sys
+import geonode
+
+GEONODE_STATIC_ROOT = os.path.join(os.path.abspath(os.path.dirname(geonode.__file__)), 'static')
+print "GEONODE_STATIC_ROOT=" + GEONODE_STATIC_ROOT
 
 # set this ahead of time as geonode settings will import it's celery app which
 # in turn uses setdefault to modify to geonode.settings causing subtle problems
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mapstory.settings'
 
 # reuse targets from geonode
-sys.path.append("../geonode")
+sys.path.append(GEONODE_STATIC_ROOT)
 from pavement import *
 
 
@@ -59,7 +63,7 @@ def clean():
 @needs('clean')
 def geonode_static():
     '''geonode static task not ideal'''
-    with pushd('../geonode/geonode/static'):
+    with pushd(GEONODE_STATIC_ROOT):
         sh('npm install')
         sh('bower install')
         sh('grunt copy')

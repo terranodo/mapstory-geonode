@@ -3,6 +3,9 @@ from distutils.command.install import INSTALL_SCHEMES
 import os
 import sys
 
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
 def fullsplit(path, result=None):
     """
     Split a pathname into components (the opposite of os.path.join) in a

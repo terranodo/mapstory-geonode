@@ -18,7 +18,20 @@ clone the following repositories as siblings of each other:
 * https://github.com/MapStory/MapLoom
 * https://github.com/GeoNode/geonode
 * https://github.com/MapStory/geoserver-geonode-ext
-* https://github.com/MapStory/mapstory-geonode
+* https://github.com/terranodo/storyscapes
+* https://github.com/ischneider/geotools (optional - only needed for extended datetime support)
+
+Setup
+-----
+
+Follow installation instructions in GeoNode for the relevant operating system.
+*STOP* when you reach the point of running `pip install -e geonode`
+
+Make virtualenv for mapstory, activate it, change directory to `mapstory-geonode` and run:
+
+    pip install -r requirements.txt
+    
+*NOTE*: while it is safer (to avoid conflicts with other packages and keep dependencies isolated) to create your virtualenv using the default mode of ignoring site-packages, this may result in more requirements being installed by pip. It is possible to use the virtualenv flag `--system-site-packages` if you run into issues.
 
 **This is incompatible with the vagrantfile - which is configured to assume a clone of the *mapstory* meta-project.**
 

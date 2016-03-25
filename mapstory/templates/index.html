@@ -35,12 +35,12 @@
     <section class="slice" id="welcome" style="margin-top:-250px;">
         <div class="container">
             <div class="row" style="padding-top:-10px;">
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="padding:15px;">
                     <h1 class="text-center">{% trans "The atlas of change that everyone can edit" %}</h1>
                 </div>
             </div>
             <div class="row" style="padding-top: 5px;">
-                <div class="input-group col-sm-6 col-sm-offset-3">
+                <div class="input-group col-sm-6 col-sm-offset-3 col-xs-offset-2">
                     <form action="{% url "search" %}">
                         <div class="input-group">
                         {% if HAYSTACK_SEARCH %}
@@ -49,13 +49,13 @@
                         <input class="form-control" id="homepage_search" type="text" name="keywords__slug__in" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore MapStories and StoryLayers" %}">
                         {% endif %}
                         <span class="input-group-btn">
-                          <button class="btn btn-primary" type="submit" style="background-color:chocolate;color:white;border:1px solid white"><i class="fa fa-search"></i></button>
+                          <button class="btn" type="submit" style="background-color:#EEE;color:black;border:1px solid white"><i class="fa fa-search"></i></button>
                         </span>
                         </div>
                     </form>
                </div>
             </div>
-            <div class="row links" style="padding-top:15px;padding-bottom:5px;">
+            <div class="row links" style="padding-top:15px;padding-bottom:5px color:#fff;">
                 <div class="col-sm-3">
                     <h3>
                         <a href="#" data-toggle="modal" data-target="#loginModal">
@@ -85,11 +85,11 @@
                     </h3>
                 </div>
             </div>
-            <div class="row" style="padding-bottom:5px;">
+            <div class="row">
                 <div class="localscroll" style="text-align:center">
                     <!-- TODO: Link to mapstories is the section that doesn't exist yet -->
-                    <a href="#mapstories" class="btn btn-circle btn-sm btn-default" style="background-color:#BD5E1B;color:white;border:1px solid transparent;border-radius:25%">
-                    <i class="icon-down" id="mapstories"></i></a>
+                    <a href="#mapstories" class="btn btn-circle btn-sm btn-default" style="background-color:#020F1A;color:white;border:1px solid transparent;border-radius:100%;padding:5px 8px"">
+                    <i class="fa fa-chevron-down" id="mapstories"></i></a>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@
                 <slick infinite="true" slides-to-show="4" autoplay="true" init-onload="true" data="results">
                     <div class="col-md-3" ng-repeat="item in results" style="right: -5px;">
                         {% verbatim %}
-                        <a href="{{ item.detail_url}}"><img class="thumb img-responsive" ng-src="{{ item.thumbnail_url}}" style="border-width:1px; border-style:solid; border-color:grey;"/></a>
+                        <a href="{{ item.detail_url}}"><img class="thumb img-responsive" ng-src="{{ item.thumbnail_url}}" style="border-width:0; border-style:none;"/></a>
                         <h3><a href="{{ item.detail_url}}">{{ item.title}}</a></h3>
                         <h5 class="abstract">{{ item.abstract|limitTo:250  }}<a href="{{ item.detail_url}}"><i>...{% endverbatim %}{% trans "read more" %}{% verbatim %}</i></a></h5>
                         <h4><span class="owner">{{ item.owner.username}}</span></h4>
@@ -135,11 +135,11 @@
         </div>
     </section>
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax1' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="getstarted">
+    <!-- <section class="slice" id="getstarted">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
@@ -187,13 +187,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax1' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="getinvolved">
+    <!-- <section class="slice" id="getinvolved">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
@@ -208,13 +208,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax2' }});"></div>
-    </section>
-                
-    <section class="slice" id="getskills">
+    </section> -->
+
+    <!-- <section class="slice" id="getskills">
         <div class="container">
                 <h1>{% trans "Get Skills" %}</h1>
                 <h3>{% trans "MapStory is for everyone, not just web developers and GIS experts. We work hard to get you the help you need to improve and succeed." %}
@@ -238,13 +238,13 @@
                 </div>
                 </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax3' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="thinkers">
+    <!-- <section class="slice" id="thinkers">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
@@ -272,13 +272,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax1' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="news">
+    <!-- <section class="slice" id="news">
         <div class="csection">
             <div class="row">
                 <h1 class="text-center">{% trans "MapStory projects making the news" %}</h1>
@@ -298,19 +298,18 @@
                     {% endfor %}
                 </div>
             </div>
-            <!-- TODO: What was this supposed to be?
             <div class="row">
                 <div class="qlink-right qlink-fb">[p_a_g_i_n_a_t_i_o_n l_i_n_k_s h_e_r_e]</div>
             </div>
-            -->
+
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax2' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="community">
+    <!-- <section class="slice" id="community">
         <div class="container">
             <div class="row">
                 <h1 class="text-center">{% trans "Community Initiatives" %}</h1>
@@ -332,13 +331,13 @@
                 </slice>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax">
+    <!-- <section class="parallax">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax3' }});"></div>
-    </section>
+    </section> -->
 
-    <section class="slice" id="sponsors">
+    <!-- <section class="slice" id="sponsors">
         <div class="container">
             <div class="row">
                 <h1 class="text-center">{% trans "Our Sponsors" %}</h1>
@@ -360,10 +359,10 @@
                 </slice>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="parallax" style="margin-bottom:-40px;">
+    <!-- <section class="parallax" style="margin-bottom:-40px;">
         <div data-stellar-background-ratio="0.5" data-stellar-vertical-offset="0" style="background-image: url({{ images|by_name:'Parallax1' }});"></div>
-    </section>
+    </section> -->
 </div></div>
 {% endblock %}

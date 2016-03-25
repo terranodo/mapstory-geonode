@@ -20,6 +20,7 @@
 
 # Django settings for the GeoNode project.
 import os
+import geonode
 from geonode.settings import *
 #
 # General Django development settings
@@ -30,12 +31,13 @@ SITENAME = 'MapStory'
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
 LOCAL_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+GEONODE_ROOT = os.path.abspath(os.path.abspath(geonode.__file__))
 
 WSGI_APPLICATION = "mapstory.wsgi.application"
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS.append(
     os.path.join(LOCAL_ROOT, "static"),
-] + STATICFILES_DIRS
+)
 
 STATIC_ROOT = os.path.join(LOCAL_ROOT, "static_root")
 MEDIA_ROOT = os.path.join(LOCAL_ROOT, "uploaded")
@@ -390,3 +392,11 @@ REMOTE_CONTENT_URL = STATIC_URL + 'assets'
 # the layer_create view allows users to create layer by providing a workspace and a featureType
 # this settings whitelists the datastores in which layers creation are allowed
 ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
+
+HAYSTACK_CONNECTIONS = {
+   'default': {
+       'ENGINE': 'mapstory.search.elasticsearch_backend.MapStoryElasticsearchSearchEngine',
+       'URL': 'http://127.0.0.1:9200/',
+       'INDEX_NAME': 'geonode',
+       },
+   }

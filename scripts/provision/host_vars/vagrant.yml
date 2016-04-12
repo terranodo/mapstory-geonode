@@ -37,6 +37,7 @@ ssl_key_password: password
 
 allowed_hosts: ['{{inventory_hostname}}', 'localhost']
 
+site_url: 'http://{{ nginx_server_name }}'
 
 # Celery settings.
 
@@ -56,7 +57,7 @@ django_debug_enabled: True
 
 
 #Geoserver Settings
-
+geoserver_host: '{{ nginx_server_name }}'
 geoserver_download: 'https://s3.amazonaws.com/boundlessps-public/mapstory/rc1a/geoserver.war'
 geoserver_wps_classify: 'https://s3-us-west-2.amazonaws.com/mapstory-resources/geoserver/2.6/libs/wps/classify.zip'
 geoserver_lib_dir: '/var/lib/tomcat7/webapps/geoserver/WEB-INF/lib'
@@ -129,7 +130,8 @@ fixtures: '../geonode/geonode/base/fixtures/initial_data.json mapstory/fixtures/
 
 # AWS S3 Settings
 
-use_aws_s3: False
+use_aws_s3_static: False
+use_aws_s3_media: False
 
 aws_storage_bucket_name:
 aws_access_key_id:
@@ -147,3 +149,7 @@ rabbitmq_application_user: "{{ application_name }}"
 rabbitmq_application_password: password
 
 broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_password }}@localhost/{{ rabbitmq_application_vhost }}"
+
+# UserSnap Settings
+
+user_snap: True

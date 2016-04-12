@@ -2,7 +2,7 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header col-md-2">
-            <a class="navbar-brand" href="{% url "home" %}">MapStory</a>
+            <a class="navbar-brand" href="{% url "home" %}">Storyscapes</a>
         </div>
 
         {% if not hide_menu %}
@@ -16,8 +16,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">{% trans 'Create' %}</a>
                     <ul class="dropdown-menu">
                         {% if user.is_authenticated %}
-                        <li><a class="pointer" ng-controller="ImportController" ng-click="open(null, '{{ STATIC_URL }}importer/partials/uploadWizard.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">{% trans "Upload StoryLayer" %}</a></li>
-                            <li><a class="pointer" ng-controller="createLayerCtrl" ng-click="open('{{ STATIC_URL }}mapstory/partials/createLayerModal.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">Create Storylayer</a></li>
+                        <li><a class="pointer" ng-controller="ImportController" ng-click="open(null, '{{ STATIC_URL }}importer/partials/uploadWizard.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">{% trans "Upload Layer" %}</a></li>
+                            <li><a class="pointer" ng-controller="createLayerCtrl" ng-click="open('{{ STATIC_URL }}mapstory/partials/createLayerModal.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">Create layer</a></li>
 
                         {% endif %}
                         <!-- <li><a href="{% url 'new_map' %}?tour">Compose Mapstory</a></li> -->
@@ -91,7 +91,7 @@
                         <li><a href="{% url "admin:index" %}"><i class="icon-settings"></i> {% trans "Admin" %}</a></li>
                         {% endif %}
                         <li class="divider"></li>
-                        <li><a title="Help" rel="tooltip" href="http://help.mapstory.org"><i class="icon-question"></i> {% trans "Help" %}</a></li>
+                        <li><a title="Help" rel="tooltip" href="#"><i class="icon-question"></i> {% trans "Help" %}</a></li>
                         <li class="divider"></li>
                         <li>
                             <form action="{% url "account_logout" %}" id="logout_form" method="post">

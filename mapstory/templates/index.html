@@ -44,9 +44,9 @@
                     <form action="{% url "search" %}">
                         <div class="input-group">
                         {% if HAYSTACK_SEARCH %}
-                        <input class="form-control" id="homepage_search" type="text" name="q" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore MapStories and StoryLayers" %}">
+                        <input class="form-control" id="homepage_search" type="text" name="q" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore Storyscapes and Layers" %}">
                         {% else %}
-                        <input class="form-control" id="homepage_search" type="text" name="keywords__slug__in" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore MapStories and StoryLayers" %}">
+                        <input class="form-control" id="homepage_search" type="text" name="keywords__slug__in" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore Storyscapes and Layers" %}">
                         {% endif %}
                         <span class="input-group-btn">
                           <button class="btn" type="submit" style="background-color:#EEE;color:black;border:1px solid white"><i class="fa fa-search"></i></button>
@@ -66,14 +66,14 @@
                 <div class="col-sm-3">
                     <h3>
                         <a ng-controller="ImportController" ng-click="open(null, '{{ STATIC_URL }}osgeo_importer/partials/uploadWizard.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">
-                            {% trans "Upload StoryLayers" %}
+                            {% trans "Upload Layers" %}
                         </a>
                     </h3>
                 </div>
                 <div class="col-sm-3">
                     <h3>
                         <a href="{% url 'new_map' %}?tour">
-                            {% trans "Compose MapStory" %}
+                            {% trans "Compose Storyscape" %}
                         </a>
                     </h3>
                 </div>

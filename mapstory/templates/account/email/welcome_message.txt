@@ -1,5 +1,5 @@
 {% load mapstory_tags %}
-Welcome to the MapStory community!
+Welcome to the Storyscapes community!
 
 Hi, {% firstof confirmation.email_address.user.first_name confirmation.email_address.user.username %}!
 
@@ -18,16 +18,16 @@ http://mapstory.org/getskills
 
 Share What You Know
 
-There's three ways to share on MapStory. Just remember A, B, C. First, you can add new spatially and temporally enabled datasets, which we call StoryLayers. Second, you can build MapStories using StoryLayers and other narrative elements that you would like. Finally, you can curate content that appears on MapStory to improve its quality and accuracy.
+There's three ways to share on Storyscapes. Just remember A, B, C. First, you can add new spatially and temporally enabled datasets, which we call StoryLayers. Second, you can build MapStories using StoryLayers and other narrative elements that you would like. Finally, you can curate content that appears on Storyscapes to improve its quality and accuracy.
 
-Start sharing on MapStory:
+Start sharing on Storyscapes:
 http://mapstory.org/
 
 ------------------
 
 Build the Community
 
-MapStory is a nonprofit open educational resource. We rely on users like you to launch new initiatives, develop new tools and raise funds to keep the project going. So, get involved and build the future of MapStory that you want to see!
+Storyscapes is a nonprofit open educational resource. We rely on users like you to launch new initiatives, develop new tools and raise funds to keep the project going. So, get involved and build the future of Storyscapes that you want to see!
 
 Get involved with the community:
 http://wiki.mapstory.org
@@ -36,4 +36,4 @@ http://wiki.mapstory.org
 
 
 Thanks for joining us, and happy MapStorytelling!
-The MapStory Team
+The Storyscapes Team

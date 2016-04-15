@@ -14,13 +14,12 @@
 {% block body_outer %}
     <div ng-controller="geonode_search_controller">
         {% include 'search/_header.html' %}
-        <div ng-show="api_endpoint == '/api/base/search/'">
+        <div ng-show="!showUserGroup()">
             <div class="col-lg-3" style="border-right:1px solid darkgray">
                 {% comment %}
                 {% include 'search/_whats_hot_content.html' %}
                 {% endcomment %}
                 {% include 'search/_refine_content.html' %}
-                {% include 'search/_trending_tags.html' %}
             </div>
             <div class="col-lg-9">
                 <nav class="filter">
@@ -28,7 +27,7 @@
                     <input name="text_search_input" id="text_search_input" ng-model="query.q" type="text"
                         class="form-control" ng-enter="search()">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" ng-click="search()" ng-class="{'disabled': !query.q}" type="submit" id="text_search_btn"><i class="fa fa-search"></i> Search</button>
+                        <button class="btn" ng-click="search()" ng-class="{'disabled': !query.q}" type="submit" id="text_search_btn" style="background-color:#333; border:1px solid #333;"><i class="icon-magnifier"></i></button>
                     </span>
                 </div>
             </nav>
@@ -40,18 +39,17 @@
                 {% include 'search/_result_content.html' %}
                 </ul>
             </div>
-            {% include 'search/_pagination.html' %}
+            <!-- {% include 'search/_pagination.html' %} -->
             </div>
         </div>
-        <div ng-show="api_endpoint == '/api/profiles/'">
-            <div class="col-lg-3" style="border-right:1px solid darkgray">
-                {% include 'search/_refine_profiles.html' %}
+        <div ng-show="showUserGroup()">
+            <div style="border-right:1px solid darkgray">
                 {% comment %}
                 {% include 'search/_whats_hot_users.html' %}
                 {% include 'search/_refine_users.html' %}
                 {% endcomment %}
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <nav class="filter">
                     <div class="input-group search-bar">
                     <input name="user_search_input" id="user_search_input" ng-model="query.q" type="text"
@@ -84,10 +82,10 @@
     SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='base' %}'
     {% endif %}
     $(function() {
-        $('#text_search_input').attr('placeholder','Search for MapStories or StoryLayers ...');
+        $('#text_search_input').attr('placeholder','Search for StoryScapes or StoryLayers ...');
         $('#keyword_search_input').attr('placeholder','Search for keyword ...');
         $('#region_search_input').attr('placeholder','Search for country or continent ...');
-        $('#user_search_input').attr('placeholder', 'Search for StoryTellers or Organizations ...');
+        $('#user_search_input').attr('placeholder', 'Search for StoryTellers or Ogranizations ...');
         $('#location_search_input').attr('placeholder', 'Search for city or country ...');
         $('#interest_search_input').attr('placeholder', 'Search for interest ...');
     });

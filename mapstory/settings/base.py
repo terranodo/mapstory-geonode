@@ -20,22 +20,24 @@
 
 # Django settings for the GeoNode project.
 import os
+import geonode
 from geonode.settings import *
 #
 # General Django development settings
 #
-
-SITENAME = 'MapStory'
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+SITENAME = 'StoryScapes'
 
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
 LOCAL_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+GEONODE_ROOT = os.path.abspath(os.path.abspath(geonode.__file__))
 
 WSGI_APPLICATION = "mapstory.wsgi.application"
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS.append(
     os.path.join(LOCAL_ROOT, "static"),
-] + STATICFILES_DIRS
+)
 
 STATIC_ROOT = os.path.join(LOCAL_ROOT, "static_root")
 MEDIA_ROOT = os.path.join(LOCAL_ROOT, "uploaded")
@@ -65,21 +67,21 @@ DATABASES = {
 INSTALLED_APPS += (
     'mapstory',
     'django.contrib.webdesign',
-    'django.contrib.sites',
     'geonode.contrib.geogig',
-    'geonode.contrib.collections',
-    'geonode.contrib.favorite',
     'icon_commons',
     'maploom',
+    'geonode.contrib.favorite',
     'haystack',
     'mailer',
     'django_slack',
+    # Adding Threaded Comments app
     'fluent_comments',
     'crispy_forms',
     'threadedcomments',
     'django_comments',
+    'django.contrib.sites',
+    'mapstory.importer',
     'djcelery',
-    'osgeo_importer'
 )
 
 # Adding Threaded Comments app
@@ -115,7 +117,8 @@ OGC_SERVER = {
     }
 }
 
-DEBUG_STATIC = True
+DEBUG = os.environ['DEBUG'] == 'True'
+DEBUG_STATIC = False
 
 REGISTRATION_OPEN = True
 
@@ -130,22 +133,20 @@ ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 ACCOUNT_EMAIL_CONFIRMATION_EMAIL = True
 
 ENABLE_SOCIAL_LOGIN = False
-USE_AWS_S3_STATIC = False
-USE_AWS_S3_MEDIA = False
+USE_AWS_S3 = False
 
 
 IMPORT_HANDLERS = (
 'mapstory.import_handlers.TruncatedNameHandler',
-'osgeo_importer.handlers.FieldConverterHandler',
-'osgeo_importer.handlers.geoserver.GeoserverPublishHandler',
-'osgeo_importer.handlers.geoserver.GeoServerBoundsHandler',
-'osgeo_importer.handlers.geoserver.GeoServerTimeHandler',
-'osgeo_importer.handlers.geoserver.GeoWebCacheHandler',
-'osgeo_importer.handlers.geonode.GeoNodePublishHandler',
+'mapstory.importer.handlers.FieldConverterHandler',
+'mapstory.importer.handlers.GeoserverPublishHandler',
+'mapstory.importer.handlers.GeoServerBoundsHandler',
+'mapstory.importer.handlers.GeoServerTimeHandler',
+'mapstory.importer.handlers.GeoWebCacheHandler',
+'mapstory.importer.handlers.GeoNodePublishHandler',
 'mapstory.import_handlers.LayerAppendHandler'
 )
 
-OSGEO_IMPORTER_GEONODE_ENABLED = True
 
 if os.path.exists('mapstory/settings/local_settings.py'):
     exec open('mapstory/settings/local_settings.py') in globals()
@@ -176,6 +177,9 @@ if ENABLE_SOCIAL_LOGIN:
         #'mapstory.social_signals.audit_user',
     )
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #@todo remove this hack once maploom can deal with other config
 # have to put this after local_settings or any adjustments to OGC_SERVER will
@@ -381,18 +385,44 @@ LOGGING = {
         },
     }
 
-if USE_AWS_S3_STATIC:
-    STATICFILES_LOCATION = 'static'
-    STATICFILES_STORAGE = 'mapstory.s3_storages.StaticStorage'
-    STATIC_URL = "https://%s/%s/" % (AWS_S3_BUCKET_DOMAIN, STATICFILES_LOCATION)
-
-if USE_AWS_S3_MEDIA:
-    MEDIAFILES_LOCATION = 'media'
-    MEDIA_URL = "https://%s/%s/" % (AWS_S3_BUCKET_DOMAIN, MEDIAFILES_LOCATION)
-    DEFAULT_FILE_STORAGE = 'mapstory.s3_storages.MediaStorage'
+if USE_AWS_S3:
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 REMOTE_CONTENT_URL = STATIC_URL + 'assets'
 
 # the layer_create view allows users to create layer by providing a workspace and a featureType
 # this settings whitelists the datastores in which layers creation are allowed
 ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
+
+HAYSTACK_CONNECTIONS = {
+   'default': {
+       'ENGINE': 'mapstory.search.elasticsearch_backend.MapStoryElasticsearchSearchEngine',
+       'URL': 'http://127.0.0.1:9200/',
+       'INDEX_NAME': 'geonode',
+       },
+   }
+
+SOCIAL_ORIGINS = [{
+   "label":"Email",
+   "url":"mailto:?subject={name}&body={url}",
+   "css_class":"email"
+}, {
+   "label":"Facebook",
+   "url":"http://www.facebook.com/sharer.php?u={url}",
+   "css_class":"fb"
+}, {
+   "label":"Twitter",
+   "url":"https://twitter.com/share?url={url}&hashtags={hashtags}",
+   "css_class":"tw"
+},{
+   "label":"Google +",
+   "url":"https://plus.google.com/share?url={url}",
+   "css_class":"gp"
+},{
+   "label":"Pinterest",
+   "url":'<img src="{url}" />',
+   "template": 'data-pin-do="buttonBookmark" href="//www.pinterest.com/pin/create/button/"',
+   "css_class":"gp"
+}]

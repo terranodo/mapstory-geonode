@@ -9,7 +9,6 @@
 {% load friendly_loader %}
 {% friendly_load avatar_tags %}
 
-<div ng-controller="detail_page_controller">
 <section class="slice" id="dashboard">
   <div class="container">
     <div class="row">
@@ -30,16 +29,22 @@
                 <!-- TODO: Add Mapstory messaging functionality, has this been implemented? -->
                 <a href="{% url "message_create" resource.owner.pk %}"><span style="color:orange">message</span></a> |
                 {% for social_link in social_links %}
-                {% ifequal social_link "twitter" %}
+                {% ifequal social_link.label "Twitter" %}
                   <a href="{{ social_link.url }}"><span style="color:deepskyblue">twitter</span></a> |
                 {% endifequal %}
-                {% ifequal social_link "facebook" %}
+                {% ifequal social_link.label "Facebook" %}
                   <a href="{{ social_link.url }}"><span style="color:dodgerblue">facebook</span></a> |
                 {% endifequal %}
+                {% ifequal social_link.label "Google +" %}
+                  <a href="{{ social_link.url }}"><span style="color:green">google</span></a> |
+                {% endifequal %}
+                {% ifequal social_link.label "Pinterest" %}
+                  <a {{ social_link.template }}><span style="color:red">pinterest</span></a>
+                {% endifequal %}
                 {% endfor %}
-                {% if resource.layers %}
+                <!-- {% if resource.layers %}
                 <span style="color:green; hover: cursor;" onclick="toggle_visibility('share');">share</span> | <span style="color:#00CC99; hover: cursor;" onclick="toggle_visibility('embed');">embed</span>
-                {% endif %}
+                {% endif %} -->
               </h2>
           </div>
         </div>
@@ -74,7 +79,7 @@
             <h4 style="text-decoration: underline">StoryLayer</h5>
             {% else %}
               {% ifequal page "map" %}
-              <h4 style="text-decoration: underline">MapStory</h5>
+              <h4 style="text-decoration: underline">Storyscapes</h5>
               {% endifequal %}
             {% endifequal %}
             <h2 class="page-title">{{ resource.title }}</h2>
@@ -91,18 +96,14 @@
             <h3 style="margin-top:0px;margin-bottom:5px;">Topic: {{ resource.category }}</h3>
             {% endifequal %}
             <h3 style="margin-top:0px;margin-bottom:5px;">Tags:</h3>
-            <script type="text/javascript">
-                // Pass the keyword list from the django template into the javascript
-                var keyword_list = "{{resource.keyword_list|escapejs}}";
-                var url = "{{ resource.detail_url }}";
-            </script>
-            {% ifequal resource.owner request.user %}
-            <input type="text" class="form-control" id="tokenfield-tags"/>
-            {% verbatim %}
-              <span class="label label-default" ng-show="tags.length > 10">{{ tags.length - 10 }} more</span>
-            {% endverbatim %}
-            <!-- TODO: Bug with this where the AJAX updates no longer match the keywords_form -->
-            <a href="#addTag" role="button" data-toggle="modal" style="hover: cursor;" ng-show="tags.length >= 10"><span class="label label-default">+ add more tags</span></a>
+            <!-- NOTE: This has some formatting issues; needs to wrap around to a second line nicely -->
+            {% for keyword in resource.keyword_list|slice:"5" %}
+              <span class="label label-default">{{ keyword }}</span>
+            {% endfor %}
+            {% if resource.keyword_list|length > 5 %}
+              <span class="label label-default">{{ resource.keyword_list|length|add:"-5" }} more</span>
+            {% endif %}
+            <a href="#addTag" role="button" data-toggle="modal" style="hover: cursor;"><span class="label label-default">+ add</span></a>
             <div id="addTag" class="modal fade" tabindex="-1" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -123,12 +124,6 @@
                 </div>
               </div>
             </div>
-            {% else %}
-            <input type="text" class="form-control" id="tokenfield-tags-readonly"/>
-            {% verbatim %}
-              <span class="label label-default" ng-show="tags.length > 10">{{ tags.length - 10 }} more</span>
-            {% endverbatim %}
-            {% endifequal %}
 
             <hr style="margin-top:15px;margin-bottom:0px">
             <!--
@@ -150,10 +145,9 @@
             <h3 style="margin-top:-15px;margin-bottom:0px">{% trans "Rate:" %}</h3>
             {% user_rating request.user resource "layer" as user_layer_rating %}
             <div id="user_rating" class="category-layer" data-score="{{ user_layer_rating }}"></div>
-            {% endif %}        
+            {% endif %}
             </article>
             <h3 style="margin-top:-15px;margin-bottom:10px">{% trans "Average:" %} {% if resource.rating %}{{ resource.rating }}/5{% else %}Not yet rated{% endif %}</h3>
-            <h3 style="margin-top:-5px;margin-bottom:10px">{% trans "Created:" %} {{ resource.date|date }}</h3>
           </div>
           {% ifequal page "layer" %}
           {% include "layers/layer_functions.html" %}
@@ -171,4 +165,12 @@
     </div>
   </div>
 </section>
-</div>
+<script type="text/javascript">
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+</script>

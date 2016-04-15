@@ -1,19 +1,19 @@
 {% load mapstory_tags %}
 
 {{ signup_code.inviter }} ({{signup_code.inviter.email}}) has
-invited you to join MapStory ( http://{{ current_site.domain }} )!
+invited you to join Storyscapes ( http://{{ current_site.domain }} )!
 
 Just click this <a href="{{ signup_url }}">link</a> to get started.
 
-You have been invited to join the MapStory community.  MapStory
+You have been invited to join the Storyscapes community.  Storyscapes
 empowers a global community to organize its knowledge about the
-world spatially and temporally. With MapStory, people of all
+world spatially and temporally. With Storyscapes, people of all
 kinds turn into Storytellers who can create, share, and
 collaborate on MapStories and ultimately improve our
 understanding of global dynamics, worldwide, over the course of
-history.  Like Wikipedia, all data that you add to  MapStory is
+history.  Like Wikipedia, all data that you add to  Storyscapes is
 contributed to the global data commons.  For more details, the
-MapStory license and copyright can be read here. per the terms in
+Storyscapes license and copyright can be read here. per the terms in
 this {% ext_link 'wiki' 'license_and_copyright' 'license' %}.
 
 

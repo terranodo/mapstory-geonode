@@ -87,7 +87,7 @@
   # would use django_manage but no way to avoid initial data?
   django_manage: command="syncdb --noinput --no-initial-data" virtualenv={{ venv }} app_path={{ project_path }}
   sudo_user: '{{ application_user }}'
-  ignore_errors: yes
+  # ignore_errors: yes
   tags: [update, syncdb]
 
 - name: load initial data

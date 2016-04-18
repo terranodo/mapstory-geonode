@@ -23,7 +23,7 @@
   tags: [setup]
 
 - name: fetch geoserver
-  get_url: url={{ geoserver_download }} dest=/tmp/{{ application_name }}
+  shell: wget -SN {{ geoserver_download }} chdir=/tmp/{{ application_name }}
   tags: [geoserver]
 
 - name: db client settings

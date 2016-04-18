@@ -22,6 +22,7 @@
 import os
 import geonode
 from geonode.settings import *
+import dj_database_url
 #
 # General Django development settings
 #
@@ -57,11 +58,10 @@ LOCALE_PATHS = (
     ) + LOCALE_PATHS
 
 # Defines settings for development
+POSTGIS = os.environ.get('POSTGIS_URL')
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(LOCAL_ROOT, 'development.db'),
-    },
+    'default': dj_database_url.config(),
+    'datastore': dj_database_url.parse(POSTGIS)
 }
 
 INSTALLED_APPS += (
@@ -124,7 +124,7 @@ REGISTRATION_OPEN = True
 LOCAL_CONTENT = False
 
 DATABASE_PASSWORD = None
-DATABASE_HOST = 'localhost'
+#DATABASE_HOST = 'localhost'
 
 AUTOCOMPLETE_QUICK_SEARCH = False
 

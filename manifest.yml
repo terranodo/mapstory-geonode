@@ -10,8 +10,8 @@ applications:
   env:
     SECRET_KEY: 'aadc-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&'
     DEBUG: 'True'
-    DATABASE_URL: 'postgres://tpljvbap:UqtAM81Oa5_8yCj0Txzjs4j8HCrR7xu2@pellefant-02.db.elephantsql.com:5432/tpljvbap'
-    POSTGIS_URL: 'postgres://rrihbmzw:4LQ-zVcuznNU8GJnMGAmdzlEU8PDUG4E@pellefant-02.db.elephantsql.com:5432/rrihbmzw'
+    DATABASE_URL: 'postgres://storyscapes:CHANGEME@storyscapes.geointservices.io:5432/storyscapes'
+    POSTGIS_URL: 'postgis://storyscapes:CHANGEME@storyscapes.geointservices.io:5432/storyscapes_data'
     GS_URL: 'http://storyscapes.geointservices.io/geoserver/'
     GS_USER: 'admin'
     GS_PASSWORD: 'CHANGEME'

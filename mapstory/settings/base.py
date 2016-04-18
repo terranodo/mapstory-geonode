@@ -394,11 +394,13 @@ REMOTE_CONTENT_URL = STATIC_URL + 'assets'
 # the layer_create view allows users to create layer by providing a workspace and a featureType
 # this settings whitelists the datastores in which layers creation are allowed
 ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
+import os
+
 
 HAYSTACK_CONNECTIONS = {
    'default': {
        'ENGINE': 'mapstory.search.elasticsearch_backend.MapStoryElasticsearchSearchEngine',
-       'URL': 'http://127.0.0.1:9200/',
+       'URL': os.environ['ES_URL'],
        'INDEX_NAME': 'geonode',
        },
    }

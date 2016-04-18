@@ -80,7 +80,7 @@ INSTALLED_APPS += (
     'threadedcomments',
     'django_comments',
     'django.contrib.sites',
-    'mapstory.importer',
+    'osgeo_importer',
     'djcelery',
 )
 
@@ -117,7 +117,6 @@ OGC_SERVER = {
     }
 }
 
-DEBUG = os.environ['DEBUG'] == 'True'
 DEBUG_STATIC = False
 
 REGISTRATION_OPEN = True

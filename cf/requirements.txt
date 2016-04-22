@@ -1,8 +1,7 @@
 http://launchpad.net/python-distutils-extra/trunk/2.28/+download/python-distutils-extra-2.28.tar.gz
-#-e git://github.com/terranodo/geonode.git@mapstory_master#egg=GeoNode
 -e git://github.com/mapstory/geonode.git#egg=GeoNode
--e git://github.com/pinax/django-mailer.git#egg=django-mailer
 -e git://github.com/MapStory/icon-commons.git#egg=icon-commons
+-e git://github.com/pinax/django-mailer.git#egg=django-mailer
 -e git://github.com/ProminentEdge/django-osgeo-importer.git@d9e1f9b7843e4b7a1a5b67c85a922984d3b14833#egg=osgeo_importer
 https://github.com/MapStory/django-maploom/archive/mapstory.zip
 django-slack==4.1.0
@@ -14,7 +13,7 @@ anyjson==0.3.3
 awesome-slugify==1.6.2
 beautifulsoup4==4.2.1
 billiard==3.3.0.22
-celery==3.1.17
+# celery==3.1.17
 chardet==2.1.1
 Cheetah==2.4.4
 cloudbase-init
@@ -77,7 +76,7 @@ gsimporter==0.1
 gunicorn==17.5
 html5lib==0.999
 httplib2==0.8
-ipython==1.2.1
+# ipython==1.2.1
 jsonpatch==1.3
 jsonpointer==1.0
 keyring==3.5
@@ -155,5 +154,4 @@ wadllib==1.3.2
 WebError==0.12
 WebOb==1.5.1
 wheel==0.29.0
-whitenoise==2.0.6
 zope.interface==4.0.5

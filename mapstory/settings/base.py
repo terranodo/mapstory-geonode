@@ -19,10 +19,12 @@
 #########################################################################
 
 # Django settings for the GeoNode project.
-import os
-import geonode
-from geonode.settings import *
 import dj_database_url
+import geonode
+import json
+import os
+from geonode.settings import *
+
 #
 # General Django development settings
 #
@@ -61,7 +63,6 @@ LOCALE_PATHS = (
 POSTGIS = os.environ.get('POSTGIS_URL')
 DATABASES = {
     'default': dj_database_url.config(),
-    'datastore': dj_database_url.parse(POSTGIS)
 }
 
 INSTALLED_APPS += (
@@ -394,16 +395,25 @@ REMOTE_CONTENT_URL = STATIC_URL + 'assets'
 # the layer_create view allows users to create layer by providing a workspace and a featureType
 # this settings whitelists the datastores in which layers creation are allowed
 ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
-import os
 
+# Fetch elasticsearch url from environment variables.
+ENV_VARIABLES = json.loads(os.environ['VCAP_SERVICES'])
+ES_URL = ENV_VARIABLES['searchly'][0]['credentials']['uri']
 
+HAYSTACK_SEARCH = True
+# Avoid permissions prefiltering
+SKIP_PERMS_FILTER = False
+# Update facet counts from Haystack
+HAYSTACK_FACET_COUNTS = False
 HAYSTACK_CONNECTIONS = {
    'default': {
        'ENGINE': 'mapstory.search.elasticsearch_backend.MapStoryElasticsearchSearchEngine',
-       'URL': os.environ['ES_URL'],
+       'URL': '127.0.0.1:9200',
        'INDEX_NAME': 'geonode',
        },
    }
+SKIP_PERMS_FILTER = True
+HAYSTACK_SIGNAL_PROCESSOR = 'mapstory.search.signals.RealtimeSignalProcessor'
 
 SOCIAL_ORIGINS = [{
    "label":"Email",

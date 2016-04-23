@@ -398,7 +398,7 @@ ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
 
 # Fetch elasticsearch url from environment variables.
 ENV_VARIABLES = json.loads(os.environ['VCAP_SERVICES'])
-ES_URL = ENV_VARIABLES['searchly'][0]['credentials']['uri']
+ES_URL = ENV_VARIABLES['searchly'][0]['credentials']['sslUri']
 
 HAYSTACK_SEARCH = True
 # Avoid permissions prefiltering
@@ -408,7 +408,7 @@ HAYSTACK_FACET_COUNTS = False
 HAYSTACK_CONNECTIONS = {
    'default': {
        'ENGINE': 'mapstory.search.elasticsearch_backend.MapStoryElasticsearchSearchEngine',
-       'URL': '127.0.0.1:9200',
+       'URL': ES_URL,
        'INDEX_NAME': 'geonode',
        },
    }

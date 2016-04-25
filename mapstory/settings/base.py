@@ -19,12 +19,15 @@
 #########################################################################
 
 # Django settings for the GeoNode project.
-import dj_database_url
 import geonode
 import json
 import os
 from geonode.settings import *
 
+CF_DEPLOY = False
+
+if CF_DEPLOY:
+    import dj_database_url
 #
 # General Django development settings
 #
@@ -62,8 +65,16 @@ LOCALE_PATHS = (
 # Defines settings for development
 POSTGIS = os.environ.get('POSTGIS_URL')
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(LOCAL_ROOT, 'development.db'),
+    },
 }
+
+if CF_DEPLOY:
+    DATABASES = {
+        'default': dj_database_url.config(),
+    }
 
 INSTALLED_APPS += (
     'mapstory',
@@ -125,7 +136,8 @@ REGISTRATION_OPEN = True
 LOCAL_CONTENT = False
 
 DATABASE_PASSWORD = None
-#DATABASE_HOST = 'localhost'
+if not CF_DEPLOY:
+    DATABASE_HOST = 'localhost'
 
 AUTOCOMPLETE_QUICK_SEARCH = False
 
@@ -397,8 +409,10 @@ REMOTE_CONTENT_URL = STATIC_URL + 'assets'
 ALLOWED_DATASTORE_LAYER_CREATE = ('*',)
 
 # Fetch elasticsearch url from environment variables.
-ENV_VARIABLES = json.loads(os.environ['VCAP_SERVICES'])
-ES_URL = ENV_VARIABLES['searchly'][0]['credentials']['sslUri']
+ES_URL = 'http://127.0.0.1:9200'
+if CF_DEPLOY:
+    ENV_VARIABLES = json.loads(os.environ['VCAP_SERVICES'])
+    ES_URL = ENV_VARIABLES['searchly'][0]['credentials']['sslUri']
 
 HAYSTACK_SEARCH = True
 # Avoid permissions prefiltering

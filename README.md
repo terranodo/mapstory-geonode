@@ -1,5 +1,5 @@
 
-mapstory-geonode
+StoryScapes
 ================
 
 [Clarify: mapstory-geonode relation to mapstory meta-project - why isnt the build in the meta-project? if mapstory-geonode handles all the dependencies why do we need the meta-project at all? ]
@@ -16,7 +16,7 @@ Deployment
 
 clone the following repositories as siblings of each other:
 * https://github.com/MapStory/MapLoom
-* https://github.com/GeoNode/geonode
+* https://github.com/Mapstory/geonode
 * https://github.com/MapStory/geoserver-geonode-ext
 * https://github.com/MapStory/mapstory-geonode
 

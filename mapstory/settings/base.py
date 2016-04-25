@@ -24,7 +24,7 @@ import json
 import os
 from geonode.settings import *
 
-CF_DEPLOY = False
+CF_DEPLOY = True 
 
 if CF_DEPLOY:
     import dj_database_url
@@ -46,6 +46,7 @@ STATICFILES_DIRS.append(
 )
 
 STATIC_ROOT = os.path.join(LOCAL_ROOT, "static_root")
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(LOCAL_ROOT, "uploaded")
 
 # Note that Django automatically includes the "templates" dir in all the
@@ -128,6 +129,8 @@ OGC_SERVER = {
         'GEOGIG_DATASTORE_DIR': '/var/lib/geoserver/data/geogig'
     }
 }
+DEBUG = False
+ALLOWED_HOSTS = ['storyscapes.geointservices.io', 'cf-storyscapes.cfapps.io', 'localhost']
 
 DEBUG_STATIC = False
 

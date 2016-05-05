@@ -396,19 +396,21 @@
   $scope.query = function(group_id) {
     $http.get('/api/collections/').then(function(response) {
       // Determine which collection this is by using the group id
-      var groups = response.data.objects;
+      var collections = response.data.objects;
       var data;
-      for (var i = 0; i < groups.length; i++) {
-        if (groups[i].id == group_id) {
-          data = groups[i];
+      for (var i = 0; i < collections.length; i++) {
+        if (collections[i].group.id == group_id) {
+          data = collections[i];
         }
       }
       $scope.avatar = data.group.logo;
       $scope.title = data.group.title;
+      document.title = $scope.title;
       $scope.slug = data.group.slug;
       // grab only the media names
       $scope.facebook = data.group.social_facebook.split('/')[1];
       $scope.twitter = data.group.social_twitter.split('/')[1];
+      $scope.tasks = data.group.tasks;
       $scope.interests = data.group.keywords;
       $scope.summary = data.group.description;
       $scope.city = data.group.city;
@@ -465,7 +467,7 @@
 })
 
 .controller('detail_page_controller', function($compile, $scope, $http){
-  function toggle_visibility(id) {
+  $scope.toggle_visibility = function(id) {
      var e = document.getElementById(id);
      if(e.style.display == 'block')
         e.style.display = 'none';
